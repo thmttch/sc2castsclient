@@ -2,9 +2,11 @@
 # -*- coding: utf-8 -*-
 
 from sc2castsclient import *
-#from sc2castsclient import Sc2CastsClient, Sc2CastsParser
-#import sc2castsclient
 
 if __name__ == '__main__':
     client = Sc2CastsClient()
-    print client
+
+    print('Current series on sc2casts.com main page:')
+
+    for series in client.series():
+        print(series.name)

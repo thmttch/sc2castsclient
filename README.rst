@@ -6,11 +6,10 @@ sc2casts client
     :target: http://badge.fury.io/py/sc2castsclient
 
 .. image:: https://travis-ci.org/thmttch/sc2castsclient.png?branch=master
-        :target: https://travis-ci.org/thmttch/sc2castsclient
+    :target: https://travis-ci.org/thmttch/sc2castsclient
 
 .. image:: https://pypip.in/d/sc2castsclient/badge.png
-        :target: https://crate.io/packages/sc2castsclient?version=latest
-
+    :target: https://crate.io/packages/sc2castsclient?version=latest
 
 Client for crawling sc2casts.com, in python
 

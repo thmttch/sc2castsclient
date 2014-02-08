@@ -30,7 +30,7 @@ class Sc2CastsClient:
         { recent, top_24h, top_week, top_month, top_alltime, best_of_201[0123], all }
         '''
         if filtertype not in [ 'recent' ]:
-            log('Unknown filtertype: ' + filtertype + '. Assuming recent')
+            self.log('Unknown filtertype: ' + filtertype + '. Assuming recent')
             filtertype = 'recent'
 
         if filtertype == 'recent':
