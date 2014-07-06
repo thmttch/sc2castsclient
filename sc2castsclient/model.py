@@ -41,7 +41,11 @@ class Sc2CastsSeries(object):
         self.event_round = None
         self.casters = [ ]
         self.casters_desc = None
+
+        # the date the cast was made; logically, MUST be lte to the post_date
         self.cast_date = None
+        # the date it was posted to youtube/sc2casts
+        self.post_date = None
 
         self.score_up = -1
         self.score_down = -1

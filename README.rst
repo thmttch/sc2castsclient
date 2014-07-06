@@ -21,6 +21,36 @@ Features
 
 * TODO
 
+Usage
+--------
+
+Set what the Makefile provides:
+
+```bash
+$> make help
+```
+
+Run tests:
+
+```bash
+# quick dev testing
+$> make test
+
+# full testing
+$> make testall
+```
+
+Development
+--------
+
+There is a [`download script`](tests/data/download.sh) for updating the local
+test suite, for keeping up-to-date as [sc2casts.com](https://sc2casts.com)
+changes over time. Note that the script is meant to be run in the same dir:
+
+```bash
+$> cd tests/data && ./download.sh
+```
+
 Misc
 --------
 
