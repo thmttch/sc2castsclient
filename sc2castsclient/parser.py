@@ -57,7 +57,7 @@ class Sc2CastsParser(object):
         # what a pain in the ass.
         # note that we manually add the "(best of ..)" info here, to maximize code reuse
         def name(vs_label, info_label):
-            return '{} ({})'.format(vs_label.h1.text, info_label.h2.text)
+            return '{0} ({1})'.format(vs_label.h1.text, info_label.h2.text)
         series.name = name(vs_label, info_label)
         series.path = None
 
@@ -68,7 +68,7 @@ class Sc2CastsParser(object):
                 (left, right) = (images[0], images[1])
                 (left_title, right_title) = (left['title'], right['title'])
 
-                return "{}v{}".format(left_title[0:1], right_title[0:1])
+                return "{0}v{1}".format(left_title[0:1], right_title[0:1])
             except Exception as e:
                 # no matchup; probably team versus team
                 return ''

@@ -195,7 +195,7 @@ class TestIndex(unittest.TestCase):
         actual = self.parser._parse_index(self.test_html)
 
         expected = 19
-        assert len(actual) == expected, 'Expected {}, got {}'.format(expected, len(actual))
+        assert len(actual) == expected, 'Expected {0}, got {1}'.format(expected, len(actual))
 
         a = actual[0]
         assert a.__class__.__name__ == 'Sc2CastsSeries', a.__class__.__name__
@@ -247,7 +247,7 @@ class TestAll(unittest.TestCase):
         actual = self.parser._parse_all(self.test_html)
 
         expected = 100
-        assert len(actual) == expected, 'Expected {}, got {}'.format(expected, len(actual))
+        assert len(actual) == expected, 'Expected {0}, got {1}'.format(expected, len(actual))
 
     def test_all_1v1(self):
         actual = self.parser._parse_all(self.test_html)
@@ -339,7 +339,7 @@ class TestTop(unittest.TestCase):
         actual = self.parser._parse_top(self.test_html)
 
         expected = 20
-        assert len(actual) == expected, 'Expected {}, got {}'.format(expected, len(actual))
+        assert len(actual) == expected, 'Expected {0}, got {1}'.format(expected, len(actual))
 
         # check some in detail
 
@@ -385,7 +385,7 @@ class TestTop(unittest.TestCase):
         actual = self.parser._parse_top(self.test_html)
 
         expected = 20
-        assert len(actual) == expected, 'Expected {}, got {}'.format(expected, len(actual))
+        assert len(actual) == expected, 'Expected {0}, got {1}'.format(expected, len(actual))
 
         # check some in detail
 
@@ -439,25 +439,25 @@ class TestBrowse(unittest.TestCase):
         actual = self.parser.casters(self.test_html)
 
         expected = 736
-        assert len(actual) == expected, 'Expected {}, got {}'.format(expected, len(actual))
+        assert len(actual) == expected, 'Expected {0}, got {1}'.format(expected, len(actual))
 
     def test_events(self):
         actual = self.parser.events(self.test_html)
 
         expected = 585
-        assert len(actual) == expected, 'Expected {}, got {}'.format(expected, len(actual))
+        assert len(actual) == expected, 'Expected {0}, got {1}'.format(expected, len(actual))
 
     def test_matchups(self):
         actual = self.parser.matchups(self.test_html)
 
         expected = 6
-        assert len(actual) == expected, 'Expected {}, got {}'.format(expected, len(actual))
+        assert len(actual) == expected, 'Expected {0}, got {1}'.format(expected, len(actual))
 
     def test_players(self):
         actual = self.parser.players(self.test_html)
 
         expected = 108
-        assert len(actual) == expected, 'Expected {}, got {}'.format(expected, len(actual))
+        assert len(actual) == expected, 'Expected {0}, got {1}'.format(expected, len(actual))
 
     def tearDown(self):
         pass
