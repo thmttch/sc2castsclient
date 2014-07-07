@@ -22,77 +22,97 @@ class Sc2CastsParser(object):
     # BO3 in 1 Video
     @staticmethod
     def _best_of(series_name):
-        #print best_of_string
-        best_of_string = re.search('\((.*)\)', series_name).group(1)
+        try:
+            best_of_string = re.search('\((.*)\)', series_name).group(1)
 
-        ''' returns: int, the number of games there are '''
-        # case by case
-        if '1 game' in best_of_string.lower():
-            num_videos = 1
-            best_of = 1
-        elif 'best of ' in best_of_string.lower():
-            num_videos = int(re.search('Best of (\d+)', best_of_string).group(1))
-            best_of = num_videos
-        elif 'bo' in best_of_string.lower():
-            num_videos = int(re.search('BO(\d+)', best_of_string).group(1))
-            best_of = num_videos
-        else:
-            num_videos = -1
-            best_of = -1
-        return best_of
+            ''' returns: int, the number of games there are '''
+            # case by case
+            if '1 game' in best_of_string.lower():
+                num_videos = 1
+                best_of = 1
+            elif 'best of ' in best_of_string.lower():
+                num_videos = int(re.search('Best of (\d+)', best_of_string).group(1))
+                best_of = num_videos
+            elif 'bo' in best_of_string.lower():
+                num_videos = int(re.search('BO(\d+)', best_of_string).group(1))
+                best_of = num_videos
+            else:
+                num_videos = -1
+                best_of = -1
+            return best_of
+        except AttributeError as e:
+            # regex failed; either there's no best_of info in the name, or it's a new pattern
+            return 'Unknown BestOf'
 
     def _parse_series_page(self, series_page_html):
         series = Sc2CastsSeries()
         soup = BeautifulSoup(series_page_html)
 
+        # useful 'global' fields
+        vs_label = soup.find('div', class_='vslabel')
+        info_label = soup.find('div', class_='infolabel')
+
         # the series 'header' and metainfo
 
-        breadcrumb = soup.find('div', class_='breadcrumb')
-
         # what a pain in the ass.
-        def name(breadcrumb):
-            return breadcrumb.h1.text + ' ' + breadcrumb.h2.text
-        series.name = name(breadcrumb)
+        # note that we manually add the "(best of ..)" info here, to maximize code reuse
+        def name(vs_label, info_label):
+            return '{0} ({1})'.format(vs_label.h1.text, info_label.h2.text)
+        series.name = name(vs_label, info_label)
         series.path = None
 
         # first span: TODO convert to object
-        series.matchup = breadcrumb.find('span').text
+        def matchup(vs_label):
+            try:
+                images = vs_label.find_all('img')
+                (left, right) = (images[0], images[1])
+                (left_title, right_title) = (left['title'], right['title'])
 
-        def players(breadcrumb):
+                return "{0}v{1}".format(left_title[0:1], right_title[0:1])
+            except Exception as e:
+                # no matchup; probably team versus team
+                return ''
+        series.matchup = matchup(vs_label)
+
+        def players(vs_label):
             return [
                 Sc2CastsPlayer(name=a.b.text, path=a['href'])
-                for a in breadcrumb.h1.find_all('a')
+                for a in vs_label.h1.find_all('a')
             ]
-        series.players = players(breadcrumb)
+        series.players = players(vs_label)
         series.players_desc = None
 
         series.best_of = self._best_of(series.name)
         # will set this later
         series.num_videos = -2
 
-        def event_info(breadcrumb):
+        def event_info(info_label):
             return Sc2CastsEvent(
-                name=breadcrumb.find('span', class_='event_name').text,
-                path=breadcrumb.find('span', class_='event_name').parent['href'],
+                name=info_label.find('span', class_='event_name').text,
+                path=info_label.find('span', class_='event_name').parent['href'],
             )
-        series.event = event_info(breadcrumb)
-        series.event_round = breadcrumb.find('span', class_='round_name').text
+        series.event = event_info(info_label)
+        series.event_round = info_label.find('span', class_='round_name').text
 
-        def casters(breadcrumb):
+        def casters(info_label):
             return [
                 Sc2CastsCaster(
                     name=span.text,
                     path=span.parent['href'],
-                ) for span in breadcrumb.find_all('span', class_='caster_name')
+                ) for span in info_label.find_all('span', class_='caster_name')
             ]
-        series.casters = casters(breadcrumb)
+        series.casters = casters(info_label)
         series.casters_desc = None
 
         # the last span in the breadcrumb...
         # TODO as datetime obj
+        # TODO no longer available; now only has post_date
         def cast_date(breadcrumb):
             return breadcrumb.find_all('span')[-1].text
-        series.cast_date = cast_date(breadcrumb)
+        def post_date(info_label):
+            return info_label.find_all('span')[-1].text
+        series.cast_date = None
+        series.post_date = post_date(info_label)
 
         def scores_info(soup):
             scores_el = soup.find('div', id='tt')
@@ -115,6 +135,9 @@ class Sc2CastsParser(object):
                 return 'Unknown'
             cast.source = source(iframe)
             cast.video_url = iframe['src']
+            # remove any query params
+            if '?' in cast.video_url:
+                cast.video_url = cast.video_url.rsplit('?', 1)[0]
             cast.video_id = cast.video_url.rsplit('/', 1)[-1]
 
             series.casts.append(cast)
