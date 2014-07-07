@@ -58,6 +58,7 @@ Release
 
 1. Open pull request, and make sure CI passes
 1. `make test && make release`
+1. Tag the release in github
 1. Bump version so master is development
   1. `setup.py`
   1. `HISTORY.rst`
