@@ -16,6 +16,8 @@ Client for crawling sc2casts.com, in python
 * Free software: BSD license
 * Documentation: http://sc2castsclient.rtfd.org.
 
+This thing needs a lot of work.
+
 Features
 --------
 
