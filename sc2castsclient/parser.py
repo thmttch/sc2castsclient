@@ -10,6 +10,8 @@ from model import *
 # this class is ordered by the navigation on sc2casts.com
 class Sc2CastsParser(object):
 
+    # http://forum.xbmc.org/showthread.php?tid=202308
+
     @staticmethod
     def _cleanup_path(path):
         ''' ensures that there is exactly one leading /, for building urls '''
@@ -46,7 +48,7 @@ class Sc2CastsParser(object):
 
     def _parse_series_page(self, series_page_html):
         series = Sc2CastsSeries()
-        soup = BeautifulSoup(series_page_html)
+        soup = BeautifulSoup(series_page_html, 'html.parser')
 
         # useful 'global' fields
         vs_label = soup.find('div', class_='vslabel')
@@ -143,6 +145,8 @@ class Sc2CastsParser(object):
             series.casts.append(cast)
         # now that we know now many
         series.num_videos = len(series.casts)
+        # use the first cast as the source (assume all are the same)
+        series.source = series.casts[0].source
 
         return series
 
@@ -210,12 +214,13 @@ class Sc2CastsParser(object):
 
         def source(div):
             return div.img['alt']
+        series.source = source(div)
 
         return series
 
     def _parse_index(self, top_page_html):
         results = [ ]
-        soup = BeautifulSoup(top_page_html)
+        soup = BeautifulSoup(top_page_html, 'html.parser')
 
         for div in soup.find_all('div', class_='latest_series'):
             result = self._parse_series_div(div)
@@ -225,7 +230,7 @@ class Sc2CastsParser(object):
 
     def _parse_top(self, top_page_html):
         results = [ ]
-        soup = BeautifulSoup(top_page_html)
+        soup = BeautifulSoup(top_page_html, 'html.parser')
 
         for div in soup.find_all('div', class_='latest_series'):
             result = self._parse_series_div(div)
@@ -235,7 +240,7 @@ class Sc2CastsParser(object):
 
     def _parse_all(self, all_page_html):
         results = [ ]
-        soup = BeautifulSoup(all_page_html)
+        soup = BeautifulSoup(all_page_html, 'html.parser')
 
         #content_div = soup.select('div .content')[0]
         #for div in content_div.find_all('div', recursive=False):
@@ -253,7 +258,7 @@ class Sc2CastsParser(object):
     #
     # out: the `td` tag containing the given section
     def _parse_browse_page(self, browse_page_html, section_name):
-        soup = BeautifulSoup(browse_page_html)
+        soup = BeautifulSoup(browse_page_html, 'html.parser')
 
         section_id = {
             'events': 0,

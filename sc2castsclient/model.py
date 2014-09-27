@@ -29,7 +29,8 @@ class Sc2CastsSeries(object):
     def __init__(self):
         self.name = None
         self.path = None
-        #self.source = None
+        # assume that all the casts in the series have the same source
+        self.source = None
 
         # series meta
         self.matchup = None

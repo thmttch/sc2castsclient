@@ -8,6 +8,8 @@ def assert_cast14719(actual):
     # can't get this. huh.
     assert a.path == None, a.path
 
+    assert a.source == 'YouTube', a.source
+
     assert len(a.players) == 2, str(len(a.players)) + ": " + str(a.players)
     assert a.players[0].__class__.__name__ == 'Sc2CastsPlayer', a.players[0]
     assert a.players_desc == None
@@ -45,6 +47,8 @@ def assert_cast14705(actual):
     assert a.name == 'KT Rolster vs Prime (Best of 5)', a.name
     # can't get this. huh.
     assert a.path == None, a.path
+
+    assert a.source == 'YouTube', a.source
 
     assert len(a.players) == 2, str(len(a.players)) + ": " + str(a.players)
     assert a.players[0].__class__.__name__ == 'Sc2CastsPlayer', a.players[0]
@@ -84,6 +88,8 @@ def assert_cast14802(actual):
     # can't get this. huh.
     assert a.path == None, a.path
 
+    assert a.source == 'YouTube', a.source
+
     assert len(a.players) == 2, str(len(a.players)) + ": " + str(a.players)
     assert a.players[0].__class__.__name__ == 'Sc2CastsPlayer', a.players[0]
     assert a.players_desc == None
@@ -121,6 +127,8 @@ def assert_cast14875(actual):
     assert a.name == 'san vs Dear (Best of 7)', a.name
     # can't get this. huh.
     assert a.path == None, a.path
+
+    assert a.source == 'YouTube', a.source
 
     assert len(a.players) == 2, str(len(a.players)) + ": " + str(a.players)
     assert a.players[0].__class__.__name__ == 'Sc2CastsPlayer', a.players[0]
@@ -161,6 +169,8 @@ def assert_cast16700(actual):
     assert a.name == 'WelMu vs Ryung (Best of 3)', a.name
     #assert a.path == '/cast16687-MaNa-vs-MMA-Best-of-3-All-in-1-video-2014-WCS-Europe-S3-Group-Stage-2', a.path
     assert a.path == '/cast16700-WelMu-vs-Ryung-Best-of-3-DreamHack-Stockholm-2014-Group-Stage-3', a.path
+
+    assert a.source == 'YouTube', a.source
 
     assert a.matchup.__class__.__name__ == 'Sc2CastsMatchup'
     # team game: currently uses empty matchup tag
@@ -204,6 +214,8 @@ def assert_cast16698(actual):
     #assert a.path == '/cast16685-WelMu-vs-MaNa-Best-of-3-All-in-1-video-2014-WCS-Europe-S3-Group-Stage-2', a.path
     assert a.path == '/cast16698-Grubby-vs-Ryung-Best-of-3-DreamHack-Stockholm-2014-Group-Stage-3', a.path
 
+    assert a.source == 'YouTube', a.source
+
     assert a.matchup.__class__.__name__ == 'Sc2CastsMatchup'
     #assert a.matchup.name == 'PvP', a.matchup.name
     assert a.matchup.name == 'PvT', a.matchup.name
@@ -245,6 +257,8 @@ def assert_cast16691(actual):
     #assert a.path == '/cast16658-Pigbaby-vs-TaeJa-Best-of-3-All-in-1-video-2014-WCS-America-S3-Group-Stage-2', a.path
     assert a.path == '/cast16691-MC-vs-Dayshi-Best-of-3-All-in-1-video-2014-WCS-Europe-S3-Group-Stage-2', a.path
 
+    assert a.source == 'YouTube', a.source
+
     assert a.matchup.__class__.__name__ == 'Sc2CastsMatchup'
     assert a.matchup.name == 'PvT', a.matchup.name
 
@@ -283,6 +297,8 @@ def assert_cast16666(actual):
 
     assert a.name == 'Scarlett vs PartinG (Best of 3)', a.name
     assert a.path == '/cast16666-Scarlett-vs-PartinG-Best-of-3-Red-Bull-Battle-Grounds:-Washington-Group-Stage', a.path
+
+    assert a.source == 'YouTube', a.source
 
     assert a.matchup.__class__.__name__ == 'Sc2CastsMatchup'
     assert a.matchup.name == 'ZvP', a.matchup.name
