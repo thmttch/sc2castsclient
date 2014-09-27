@@ -27,6 +27,7 @@ class Sc2CastsClient:
         self.parser = Sc2CastsParser()
         self.user_agent = user_agent
 
+    # returns Sc2CastsSeries
     def series(self, filtertype='recent'):
         '''
         Query/filter for getting one or more casts, by 'type':
@@ -35,7 +36,7 @@ class Sc2CastsClient:
 
         Note that "Top (All Time)" is not supported because it is a premium feature.
 
-        TODO browse, best_of_201[0123], 
+        TODO browse, best_of_201[0123]
         '''
         if filtertype not in [ 'recent', 'top_24h', 'top_week', 'top_month', 'all' ]:
             self.log('Unknown filtertype: ' + filtertype + '. Assuming recent')
@@ -62,6 +63,7 @@ class Sc2CastsClient:
             html = requests.get(url).text
             return self.parser._parse_all(html)
 
+    # returns Sc2CastsSeries
     def series_by_path(self, path):
         url = self.HOST + path
         html = requests.get(url).text
