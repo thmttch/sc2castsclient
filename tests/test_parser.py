@@ -24,7 +24,8 @@ class TestSeries(unittest.TestCase):
         pass
 
     def test_bo3_in_1_game(self):
-        actual = self.parser._parse_series_page(self.get_test('cast14719-Soulkey-vs-Cure-Best-of-3-All-in-1-video-IEM-Cologne-2014-Korean-Qualifier'))
+        #actual = self.parser._parse_series_page(self.get_test('cast14719-Soulkey-vs-Cure-Best-of-3-All-in-1-video-IEM-Cologne-2014-Korean-Qualifier'))
+        actual = self.parser._parse_series_page(self.get_test('cast14719-Soulkey-vs-Cure-BO3-in-1-video-IEM-Cologne-2014-Korean-Qualifier'))
         assert_cast14719(actual)
 
     '''
@@ -212,11 +213,16 @@ class TestIndex(unittest.TestCase):
         expected = 21
         assert len(actual) == expected, 'Expected {0}, got {1}'.format(expected, len(actual))
 
+        assert_cast16700(actual[0])
+
+        '''
         a = actual[0]
         assert a.__class__.__name__ == 'Sc2CastsSeries', a.__class__.__name__
 
-        assert a.name == 'MaNa vs MMA (BO3 in 1 Video)', a.name
-        assert a.path == '/cast16687-MaNa-vs-MMA-Best-of-3-All-in-1-video-2014-WCS-Europe-S3-Group-Stage-2', a.path
+        #assert a.name == 'MaNa vs MMA (BO3 in 1 Video)', a.name
+        assert a.name == 'WelMu vs Ryung (Best of 3)', a.name
+        #assert a.path == '/cast16687-MaNa-vs-MMA-Best-of-3-All-in-1-video-2014-WCS-Europe-S3-Group-Stage-2', a.path
+        assert a.path == '/cast16700-WelMu-vs-Ryung-Best-of-3-DreamHack-Stockholm-2014-Group-Stage-3', a.path
 
         assert a.matchup.__class__.__name__ == 'Sc2CastsMatchup'
         # team game: currently uses empty matchup tag
@@ -229,8 +235,10 @@ class TestIndex(unittest.TestCase):
         assert a.best_of == 3, a.best_of
         assert a.num_videos == 0, a.num_videos
 
-        assert a.event.name == '2014 WCS Europe S3', a.event.name
-        assert a.event_round == 'Group Stage 2', a.event_round
+        #assert a.event.name == '2014 WCS Europe S3', a.event.name
+        assert a.event.name == 'DreamHack Stockholm 2014', a.event.name
+        #assert a.event_round == 'Group Stage 2', a.event_round
+        assert a.event_round == 'Group Stage 3', a.event_round
 
         assert len(a.casters) == 1, len(a.casters)
         assert a.casters_desc == None, a.casters_desc
@@ -247,6 +255,7 @@ class TestIndex(unittest.TestCase):
         # can't find out
         assert len(a.casts) == a.num_videos, len(a.casts)
         assert a.casts == [ ], a.casts
+        '''
 
 class TestAll(unittest.TestCase):
     def setUp(self):
@@ -265,15 +274,20 @@ class TestAll(unittest.TestCase):
 
     def test_all_1v1(self):
         actual = self.parser._parse_all(self.test_html)
+        assert_cast16698(actual[2])
 
+        '''
         a = actual[2]
         assert a.__class__.__name__ == 'Sc2CastsSeries', a.__class__.__name__
 
-        assert a.name == 'WelMu vs MaNa (BO3 in 1 Video)', a.name
-        assert a.path == '/cast16685-WelMu-vs-MaNa-Best-of-3-All-in-1-video-2014-WCS-Europe-S3-Group-Stage-2', a.path
+        #assert a.name == 'WelMu vs MaNa (BO3 in 1 Video)', a.name
+        assert a.name == 'Grubby vs Ryung (Best of 3)', a.name
+        #assert a.path == '/cast16685-WelMu-vs-MaNa-Best-of-3-All-in-1-video-2014-WCS-Europe-S3-Group-Stage-2', a.path
+        assert a.path == '/cast16698-Grubby-vs-Ryung-Best-of-3-DreamHack-Stockholm-2014-Group-Stage-3', a.path
 
         assert a.matchup.__class__.__name__ == 'Sc2CastsMatchup'
-        assert a.matchup.name == 'PvP', a.matchup.name
+        #assert a.matchup.name == 'PvP', a.matchup.name
+        assert a.matchup.name == 'PvT', a.matchup.name
 
         assert len(a.players) == 2, str(len(a.players)) + ": " + str(a.players)
         assert a.players[0].__class__.__name__ == 'Sc2CastsPlayer', a.players[0]
@@ -282,8 +296,9 @@ class TestAll(unittest.TestCase):
         assert a.best_of == 3, a.best_of
         assert a.num_videos == 0, a.num_videos
 
-        assert a.event.name == '2014 WCS Europe S3', a.event.name
-        assert a.event_round == 'Group Stage 2', a.event_round
+        #assert a.event.name == '2014 WCS Europe S3', a.event.name
+        assert a.event.name == 'DreamHack Stockholm 2014', a.event.name
+        assert a.event_round == 'Group Stage 3', a.event_round
 
         assert len(a.casters) == 1, len(a.casters)
         assert a.casters_desc == None, a.casters_desc
@@ -300,6 +315,7 @@ class TestAll(unittest.TestCase):
         # can't find out
         assert len(a.casts) == a.num_videos, len(a.casts)
         assert a.casts == [ ], a.casts
+        '''
 
     def test_all_team_game(self):
         actual = self.parser._parse_all(self.test_html)
@@ -307,8 +323,10 @@ class TestAll(unittest.TestCase):
         a = actual[0]
         assert a.__class__.__name__ == 'Sc2CastsSeries', a.__class__.__name__
 
-        assert a.name == 'MaNa vs MMA (BO3 in 1 Video)', a.name
-        assert a.path == '/cast16687-MaNa-vs-MMA-Best-of-3-All-in-1-video-2014-WCS-Europe-S3-Group-Stage-2', a.path
+        #assert a.name == 'MaNa vs MMA (BO3 in 1 Video)', a.name
+        assert a.name == 'WelMu vs Ryung (Best of 3)', a.name
+        #assert a.path == '/cast16687-MaNa-vs-MMA-Best-of-3-All-in-1-video-2014-WCS-Europe-S3-Group-Stage-2', a.path
+        assert a.path == '/cast16700-WelMu-vs-Ryung-Best-of-3-DreamHack-Stockholm-2014-Group-Stage-3', a.path
 
         assert a.matchup.__class__.__name__ == 'Sc2CastsMatchup'
         # team games currently have empty matchup tags
@@ -322,8 +340,9 @@ class TestAll(unittest.TestCase):
         assert a.best_of == 3, a.best_of
         assert a.num_videos == 0, a.num_videos
 
-        assert a.event.name == '2014 WCS Europe S3', a.event.name
-        assert a.event_round == 'Group Stage 2', a.event_round
+        #assert a.event.name == '2014 WCS Europe S3', a.event.name
+        assert a.event.name == 'DreamHack Stockholm 2014', a.event.name
+        assert a.event_round == 'Group Stage 3', a.event_round
 
         assert len(a.casters) == 1, len(a.casters)
         assert a.casters_desc == None, a.casters_desc
@@ -356,12 +375,16 @@ class TestTop(unittest.TestCase):
         assert len(actual) == expected, 'Expected {0}, got {1}'.format(expected, len(actual))
 
         # check some in detail
+        assert_cast16691(actual[0])
 
+        '''
         a = actual[0]
         assert a.__class__.__name__ == 'Sc2CastsSeries'
 
-        assert a.name == 'Pigbaby vs TaeJa (BO3 in 1 Video)', a.name
-        assert a.path == '/cast16658-Pigbaby-vs-TaeJa-Best-of-3-All-in-1-video-2014-WCS-America-S3-Group-Stage-2', a.path
+        #assert a.name == 'Pigbaby vs TaeJa (BO3 in 1 Video)', a.name
+        assert a.name == 'MC vs Dayshi (BO3 in 1 Video)', a.name
+        #assert a.path == '/cast16658-Pigbaby-vs-TaeJa-Best-of-3-All-in-1-video-2014-WCS-America-S3-Group-Stage-2', a.path
+        assert a.path == '/cast16691-MC-vs-Dayshi-Best-of-3-All-in-1-video-2014-WCS-Europe-S3-Group-Stage-2', a.path
 
         assert a.matchup.__class__.__name__ == 'Sc2CastsMatchup'
         assert a.matchup.name == 'PvT', a.matchup.name
@@ -374,7 +397,8 @@ class TestTop(unittest.TestCase):
         # can't find out
         assert a.num_videos == 0, a.num_videos
 
-        assert a.event.name == '2014 WCS America S3', a.event.name
+        #assert a.event.name == '2014 WCS America S3', a.event.name
+        assert a.event.name == '2014 WCS Europe S3', a.event.name
         assert a.event_round == 'Group Stage 2', a.event_round
 
         assert len(a.casters) == 1, len(a.casters)
@@ -392,6 +416,7 @@ class TestTop(unittest.TestCase):
         # can't find out
         assert len(a.casts) == a.num_videos, len(a.casts)
         assert a.casts == [ ], a.casts
+        '''
 
     def test_top_month(self):
         with open('tests/data/top?month', 'r') as f:
@@ -402,7 +427,9 @@ class TestTop(unittest.TestCase):
         assert len(actual) == expected, 'Expected {0}, got {1}'.format(expected, len(actual))
 
         # check some in detail
+        assert_cast16666(actual[0])
 
+        '''
         a = actual[0]
         assert a.__class__.__name__ == 'Sc2CastsSeries'
 
@@ -438,6 +465,7 @@ class TestTop(unittest.TestCase):
         # can't find out
         assert len(a.casts) == a.num_videos, len(a.casts)
         assert a.casts == [ ], a.casts
+        '''
 
 class TestBrowse(unittest.TestCase):
     def setUp(self):
@@ -454,7 +482,8 @@ class TestBrowse(unittest.TestCase):
     def test_events(self):
         actual = self.parser.events(self.test_html)
 
-        expected = 605
+        #expected = 605
+        expected = 607
         assert len(actual) == expected, 'Expected {0}, got {1}'.format(expected, len(actual))
 
     def test_matchups(self):
