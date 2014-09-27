@@ -13,9 +13,10 @@ class Sc2CastsClient:
     PATH_TOP_24H = '/top'
     PATH_TOP_WEEK = '/top?week'
     PATH_TOP_MONTH = '/top?month'
-    PATH_TOP_ALL = '/top?all'
-    #PATH_BROWSE = '/browse'
     PATH_ALL = '/all'
+
+    #PATH_TOP_ALL = '/top?all'
+    #PATH_BROWSE = '/browse'
 
     USER_AGENT = ''
 
@@ -30,9 +31,13 @@ class Sc2CastsClient:
         '''
         Query/filter for getting one or more casts, by 'type':
 
-        { recent, top_24h, top_week, top_month, top_all, best_of_201[0123], all }
+        { recent, top_24h, top_week, top_month, all }
+
+        Note that "Top (All Time)" is not supported because it is a premium feature.
+
+        TODO browse, best_of_201[0123], 
         '''
-        if filtertype not in [ 'recent', 'top_24h', 'top_week', 'top_month', 'top_all', 'all' ]:
+        if filtertype not in [ 'recent', 'top_24h', 'top_week', 'top_month', 'all' ]:
             self.log('Unknown filtertype: ' + filtertype + '. Assuming recent')
             filtertype = 'recent'
 
@@ -50,10 +55,6 @@ class Sc2CastsClient:
             return self.parser._parse_top(html)
         elif filtertype == 'top_month':
             url = self.HOST + self.PATH_TOP_MONTH
-            html = requests.get(url).text
-            return self.parser._parse_top(html)
-        elif filtertype == 'top_all':
-            url = self.HOST + self.PATH_TOP_ALL
             html = requests.get(url).text
             return self.parser._parse_top(html)
         elif filtertype == 'all':

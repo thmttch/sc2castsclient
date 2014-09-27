@@ -61,9 +61,17 @@ class TestSc2CastsClient(unittest.TestCase):
             #('/cast16699-Grubby-vs-Ryung-Best-of-3-DreamHack-Stockholm-2014-Group-Stage-3', assert_cast16698),
             #('/cast16700-WelMu-vs-Ryung-Best-of-3-DreamHack-Stockholm-2014-Group-Stage-3', assert_cast16700),
         ]:
-            #actual = client.series_by_path()
-            #assert_cast14705(actual)
             asserter(client.series_by_path(path))
+
+    def test_unknown_filtertype(self):
+        client = Sc2CastsClient()
+
+        expected = client.series('recent')
+        actual = client.series('unknown filtertype defaults to recent')
+
+        assert len(expected) == len(actual)
+        #assert expected[0] == actual[0]
+        #assert expected[-1] == actual[-1]
 
 if __name__ == '__main__':
     unittest.main()
