@@ -21,7 +21,9 @@ This thing needs a lot of work.
 Features
 --------
 
-* TODO
+```python
+from sc2castsclient import *
+```
 
 Usage
 --------
@@ -40,6 +42,9 @@ $> make test
 
 # full testing
 $> make testall
+
+coverage run --source=sc2castsclient setup.py test
+coverage report -m
 ```
 
 Development

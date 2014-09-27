@@ -43,3 +43,6 @@ docs/_build
 
 # local virtualenv
 venv
+
+# testing reports
+htmlcov

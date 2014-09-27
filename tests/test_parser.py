@@ -11,6 +11,7 @@ Tests for `sc2castsparser` module.
 import unittest
 
 from sc2castsclient import *
+from tests import *
 
 # the actual page for a series, where the videos are embedded
 class TestSeries(unittest.TestCase):
@@ -19,10 +20,15 @@ class TestSeries(unittest.TestCase):
     def get_test(self, name):
         with open('tests/data/' + name, 'r') as f:
             return f.read()
+    def tearDown(self):
+        pass
 
     def test_bo3_in_1_game(self):
         actual = self.parser._parse_series_page(self.get_test('cast14719-Soulkey-vs-Cure-Best-of-3-All-in-1-video-IEM-Cologne-2014-Korean-Qualifier'))
+        assert_cast14719(actual)
 
+    '''
+    def assert_cast14719(self, actual):
         a = actual
         assert a.__class__.__name__ == 'Sc2CastsSeries', a.__class__.__name__
 
@@ -59,11 +65,14 @@ class TestSeries(unittest.TestCase):
         assert aa.source == 'YouTube', aa.source
         assert aa.video_url == 'https://www.youtube.com/embed/Gt4E3rIUhoA', aa.video_url
         assert aa.video_id == 'Gt4E3rIUhoA', aa.video_id
+    '''
 
     # games 4 and 5 not played
     def test_5_games_4_5_not_played(self):
         actual = self.parser._parse_series_page(self.get_test('cast14705-KT-Rolster-vs-Prime-Best-of-5-2014-Proleague-Round-1'))
+        assert_cast14705(actual)
 
+        '''
         a = actual
         assert a.__class__.__name__ == 'Sc2CastsSeries', a.__class__.__name__
 
@@ -100,10 +109,13 @@ class TestSeries(unittest.TestCase):
         assert aa.source == 'YouTube', aa.source
         assert aa.video_url == 'https://www.youtube.com/embed/QqSRtBVEXDs', aa.video_url
         assert aa.video_id == 'QqSRtBVEXDs', aa.video_id
+        '''
 
     def test_5_games_all_played(self):
         actual = self.parser._parse_series_page(self.get_test('cast14802-Innovation-vs-MC-Best-of-5-Warer.com-Invitational-Semi-Finals'))
+        assert_cast14802(actual)
 
+        '''
         a = actual
         assert a.__class__.__name__ == 'Sc2CastsSeries', a.__class__.__name__
 
@@ -140,10 +152,13 @@ class TestSeries(unittest.TestCase):
         assert aa.source == 'YouTube', aa.source
         assert aa.video_url == 'https://www.youtube.com/embed/lp32OJc6zmA', aa.video_url
         assert aa.video_id == 'lp32OJc6zmA', aa.video_id
+        '''
 
     def test_7_games_last_3_not_played(self):
         actual = self.parser._parse_series_page(self.get_test('cast14875-san-vs-Dear-Best-of-7-ASUS-ROG-Winter-2014-Finals'))
+        assert_cast14875(actual)
 
+        '''
         a = actual
         assert a.__class__.__name__ == 'Sc2CastsSeries', a.__class__.__name__
 
@@ -180,9 +195,7 @@ class TestSeries(unittest.TestCase):
         assert aa.source == 'YouTube', aa.source
         assert aa.video_url == 'https://www.youtube.com/embed/SW2jJllZUHQ', aa.video_url
         assert aa.video_id == 'SW2jJllZUHQ', aa.video_id
-
-    def tearDown(self):
-        pass
+        '''
 
 class TestIndex(unittest.TestCase):
     def setUp(self):
@@ -190,6 +203,8 @@ class TestIndex(unittest.TestCase):
             self.test_html = f.read()
         # TODO test multiple pages
         self.parser = Sc2CastsParser()
+    def tearDown(self):
+        pass
 
     def test_index(self):
         actual = self.parser._parse_index(self.test_html)
@@ -233,15 +248,14 @@ class TestIndex(unittest.TestCase):
         assert len(a.casts) == a.num_videos, len(a.casts)
         assert a.casts == [ ], a.casts
 
-    def tearDown(self):
-        pass
-
 class TestAll(unittest.TestCase):
     def setUp(self):
         with open('tests/data/all', 'r') as f:
             self.test_html = f.read()
         # TODO test multiple pages
         self.parser = Sc2CastsParser()
+    def tearDown(self):
+        pass
 
     def test_all_general(self):
         actual = self.parser._parse_all(self.test_html)
@@ -327,12 +341,11 @@ class TestAll(unittest.TestCase):
         assert len(a.casts) == a.num_videos, len(a.casts)
         assert a.casts == [ ], a.casts
 
-    def tearDown(self):
-        pass
-
 class TestTop(unittest.TestCase):
     def setUp(self):
         self.parser = Sc2CastsParser()
+    def tearDown(self):
+        pass
 
     def test_top(self):
         with open('tests/data/top', 'r') as f:
@@ -425,10 +438,6 @@ class TestTop(unittest.TestCase):
         # can't find out
         assert len(a.casts) == a.num_videos, len(a.casts)
         assert a.casts == [ ], a.casts
-
-
-    def tearDown(self):
-        pass
 
 class TestBrowse(unittest.TestCase):
     def setUp(self):

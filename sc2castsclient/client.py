@@ -10,14 +10,17 @@ class Sc2CastsClient:
     HOST = 'http://sc2casts.com'
 
     PATH_INDEX = '/index.php'
-    PATH_TOP = '/top'
-    PATH_BROWSE = '/browse'
+    PATH_TOP_24H = '/top'
+    PATH_TOP_WEEK = '/top?week'
+    PATH_TOP_MONTH = '/top?month'
+    PATH_TOP_ALL = '/top?all'
+    #PATH_BROWSE = '/browse'
     PATH_ALL = '/all'
 
     USER_AGENT = ''
 
     def log(self, message):
-        print  message
+        print message
 
     def __init__(self, user_agent=USER_AGENT):
         self.parser = Sc2CastsParser()
@@ -27,9 +30,9 @@ class Sc2CastsClient:
         '''
         Query/filter for getting one or more casts, by 'type':
 
-        { recent, top_24h, top_week, top_month, top_alltime, best_of_201[0123], all }
+        { recent, top_24h, top_week, top_month, top_all, best_of_201[0123], all }
         '''
-        if filtertype not in [ 'recent' ]:
+        if filtertype not in [ 'recent', 'top_24h', 'top_week', 'top_month', 'top_all', 'all' ]:
             self.log('Unknown filtertype: ' + filtertype + '. Assuming recent')
             filtertype = 'recent'
 
@@ -37,6 +40,26 @@ class Sc2CastsClient:
             url = self.HOST + self.PATH_INDEX
             html = requests.get(url).text
             return self.parser._parse_index(html)
+        elif filtertype == 'top_24h':
+            url = self.HOST + self.PATH_TOP_24H
+            html = requests.get(url).text
+            return self.parser._parse_top(html)
+        elif filtertype == 'top_week':
+            url = self.HOST + self.PATH_TOP_WEEK
+            html = requests.get(url).text
+            return self.parser._parse_top(html)
+        elif filtertype == 'top_month':
+            url = self.HOST + self.PATH_TOP_MONTH
+            html = requests.get(url).text
+            return self.parser._parse_top(html)
+        elif filtertype == 'top_all':
+            url = self.HOST + self.PATH_TOP_ALL
+            html = requests.get(url).text
+            return self.parser._parse_top(html)
+        elif filtertype == 'all':
+            url = self.HOST + self.PATH_ALL
+            html = requests.get(url).text
+            return self.parser._parse_all(html)
 
     def series_by_path(self, path):
         url = self.HOST + path
