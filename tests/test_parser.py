@@ -117,11 +117,13 @@ class TestTop(unittest.TestCase):
         self.parser = Sc2CastsParser()
     def tearDown(self):
         pass
+    def loadTest(self, file_name, date_string):
+        with open('tests/data/{}_{}'.format(file_name, date_string), 'r') as f:
+            test_data = f.read()
+        return test_data
 
-    def test_top(self):
-        with open('tests/data/top', 'r') as f:
-            self.test_html = f.read()
-        actual = self.parser._parse_top(self.test_html)
+    def test_top_20140925(self):
+        actual = self.parser._parse_top(self.loadTest('top', '20140925'))
 
         expected = 20
         assert len(actual) == expected, 'Expected {0}, got {1}'.format(expected, len(actual))
@@ -129,16 +131,32 @@ class TestTop(unittest.TestCase):
         # check some in detail
         assert_cast16691(actual[0])
 
-    def test_top_month(self):
-        with open('tests/data/top?month', 'r') as f:
-            self.test_html = f.read()
-        actual = self.parser._parse_top(self.test_html)
+    def test_top_month_20140925(self):
+        actual = self.parser._parse_top(self.loadTest('top?month', '20140925'))
 
         expected = 20
         assert len(actual) == expected, 'Expected {0}, got {1}'.format(expected, len(actual))
 
         # check some in detail
         assert_cast16666(actual[0])
+
+    def test_top_20141116(self):
+        actual = self.parser._parse_top(self.loadTest('top', '20141116'))
+
+        expected = 20
+        assert len(actual) == expected, 'Expected {0}, got {1}'.format(expected, len(actual))
+
+        # check some in detail
+        assert_cast16892(actual[0])
+
+    def test_top_month_20141116(self):
+        actual = self.parser._parse_top(self.loadTest('top?month', '20141116'))
+
+        expected = 20
+        assert len(actual) == expected, 'Expected {0}, got {1}'.format(expected, len(actual))
+
+        # check some in detail
+        assert_cast17011(actual[0])
 
 class TestBrowse(unittest.TestCase):
     def setUp(self):
