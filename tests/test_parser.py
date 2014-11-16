@@ -163,18 +163,19 @@ class TestBrowse(unittest.TestCase):
         with open('tests/data/browse', 'r') as f:
             self.test_html = f.read()
         self.parser = Sc2CastsParser()
+    def tearDown(self):
+        pass
 
     def test_casters(self):
         actual = self.parser.casters(self.test_html)
 
-        expected = 763
+        expected = 816
         assert len(actual) == expected, 'Expected {0}, got {1}'.format(expected, len(actual))
 
     def test_events(self):
         actual = self.parser.events(self.test_html)
 
-        #expected = 605
-        expected = 607
+        expected = 621
         assert len(actual) == expected, 'Expected {0}, got {1}'.format(expected, len(actual))
 
     def test_matchups(self):
@@ -188,9 +189,6 @@ class TestBrowse(unittest.TestCase):
 
         expected = 108
         assert len(actual) == expected, 'Expected {0}, got {1}'.format(expected, len(actual))
-
-    def tearDown(self):
-        pass
 
 if __name__ == '__main__':
     unittest.main()
