@@ -51,6 +51,7 @@ $> make test
 
 # run one test
 $> TODO
+python -m unittest test_module.TestClass.test_method
 
 # full testing
 $> make testall

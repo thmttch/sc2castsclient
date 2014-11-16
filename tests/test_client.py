@@ -11,8 +11,9 @@ Tests for `sc2castsclient` module.
 import unittest
 
 from sc2castsclient import *
+from assertions import *
+
 from pprint import pprint
-from tests import *
 
 class TestSc2CastsClient(unittest.TestCase):
     '''

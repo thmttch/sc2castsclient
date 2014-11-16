@@ -164,9 +164,7 @@ def assert_cast16700(actual):
     a = actual
     assert a.__class__.__name__ == 'Sc2CastsSeries', a.__class__.__name__
 
-    #assert a.name == 'MaNa vs MMA (BO3 in 1 Video)', a.name
     assert a.name == 'WelMu vs Ryung (Best of 3)', a.name
-    #assert a.path == '/cast16687-MaNa-vs-MMA-Best-of-3-All-in-1-video-2014-WCS-Europe-S3-Group-Stage-2', a.path
     assert a.path == '/cast16700-WelMu-vs-Ryung-Best-of-3-DreamHack-Stockholm-2014-Group-Stage-3', a.path
 
     assert a.source == 'YouTube', a.source
@@ -182,9 +180,7 @@ def assert_cast16700(actual):
     assert a.best_of == 3, a.best_of
     assert a.num_videos == 0, a.num_videos
 
-    #assert a.event.name == '2014 WCS Europe S3', a.event.name
     assert a.event.name == 'DreamHack Stockholm 2014', a.event.name
-    #assert a.event_round == 'Group Stage 2', a.event_round
     assert a.event_round == 'Group Stage 3', a.event_round
 
     assert len(a.casters) == 1, len(a.casters)
@@ -203,20 +199,55 @@ def assert_cast16700(actual):
     assert len(a.casts) == a.num_videos, len(a.casts)
     assert a.casts == [ ], a.casts
 
-def assert_cast16698(actual):
-    #a = actual[2]
+def assert_cast17091(actual):
     a = actual
     assert a.__class__.__name__ == 'Sc2CastsSeries', a.__class__.__name__
 
-    #assert a.name == 'WelMu vs MaNa (BO3 in 1 Video)', a.name
+    assert a.name == 'TLO vs LosirA (BO3 in 1 Video)', a.name
+    assert a.path == '/cast17091-TLO-vs-LosirA-Best-of-3-All-in-1-video-HomeStory-Cup-X-Group-Stage-2', a.path
+
+    assert a.source == 'Twitch', a.source
+
+    assert a.matchup.__class__.__name__ == 'Sc2CastsMatchup'
+    # team game: currently uses empty matchup tag
+    assert a.matchup.name == 'ZvZ', a.matchup.name
+
+    assert len(a.players) == 2, str(len(a.players)) + ": " + str(a.players)
+    assert a.players[0].__class__.__name__ == 'Sc2CastsPlayer', a.players[0]
+    assert a.players_desc == None
+
+    assert a.best_of == 3, a.best_of
+    assert a.num_videos == 0, a.num_videos
+
+    assert a.event.name == 'HomeStory Cup X', a.event.name
+    assert a.event_round == 'Group Stage 2', a.event_round
+
+    assert len(a.casters) == 1, len(a.casters)
+    assert a.casters_desc == None, a.casters_desc
+
+    # can't find out
+    assert a.cast_date == None, a.cast_date
+    assert a.post_date == None, a.post_date
+
+    # can't find out
+    assert a.score_up == -1, a.score_up
+    assert a.score_down == -1, a.score_down
+
+    # the casts themselves
+    # can't find out
+    assert len(a.casts) == a.num_videos, len(a.casts)
+    assert a.casts == [ ], a.casts
+
+def assert_cast16698(actual):
+    a = actual
+    assert a.__class__.__name__ == 'Sc2CastsSeries', a.__class__.__name__
+
     assert a.name == 'Grubby vs Ryung (Best of 3)', a.name
-    #assert a.path == '/cast16685-WelMu-vs-MaNa-Best-of-3-All-in-1-video-2014-WCS-Europe-S3-Group-Stage-2', a.path
     assert a.path == '/cast16698-Grubby-vs-Ryung-Best-of-3-DreamHack-Stockholm-2014-Group-Stage-3', a.path
 
     assert a.source == 'YouTube', a.source
 
     assert a.matchup.__class__.__name__ == 'Sc2CastsMatchup'
-    #assert a.matchup.name == 'PvP', a.matchup.name
     assert a.matchup.name == 'PvT', a.matchup.name
 
     assert len(a.players) == 2, str(len(a.players)) + ": " + str(a.players)
@@ -226,9 +257,46 @@ def assert_cast16698(actual):
     assert a.best_of == 3, a.best_of
     assert a.num_videos == 0, a.num_videos
 
-    #assert a.event.name == '2014 WCS Europe S3', a.event.name
     assert a.event.name == 'DreamHack Stockholm 2014', a.event.name
     assert a.event_round == 'Group Stage 3', a.event_round
+
+    assert len(a.casters) == 1, len(a.casters)
+    assert a.casters_desc == None, a.casters_desc
+
+    # can't find out
+    assert a.cast_date == None, a.cast_date
+    assert a.post_date == None, a.post_date
+
+    # can't find out
+    assert a.score_up == -1, a.score_up
+    assert a.score_down == -1, a.score_down
+
+    # the casts themselves
+    # can't find out
+    assert len(a.casts) == a.num_videos, len(a.casts)
+    assert a.casts == [ ], a.casts
+
+def assert_cast17089(actual):
+    a = actual
+    assert a.__class__.__name__ == 'Sc2CastsSeries', a.__class__.__name__
+
+    assert a.name == 'Flash vs LosirA (BO3 in 1 Video)', a.name
+    assert a.path == '/cast17089-Flash-vs-LosirA-Best-of-3-All-in-1-video-HomeStory-Cup-X-Group-Stage-2', a.path
+
+    assert a.source == 'Twitch', a.source
+
+    assert a.matchup.__class__.__name__ == 'Sc2CastsMatchup'
+    assert a.matchup.name == 'TvZ', a.matchup.name
+
+    assert len(a.players) == 2, str(len(a.players)) + ": " + str(a.players)
+    assert a.players[0].__class__.__name__ == 'Sc2CastsPlayer', a.players[0]
+    assert a.players_desc == None
+
+    assert a.best_of == 3, a.best_of
+    assert a.num_videos == 0, a.num_videos
+
+    assert a.event.name == 'HomeStory Cup X', a.event.name
+    assert a.event_round == 'Group Stage 2', a.event_round
 
     assert len(a.casters) == 1, len(a.casters)
     assert a.casters_desc == None, a.casters_desc
