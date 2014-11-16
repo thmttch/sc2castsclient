@@ -161,7 +161,6 @@ def assert_cast14875(actual):
     assert aa.video_id == 'SW2jJllZUHQ', aa.video_id
 
 def assert_cast16700(actual):
-    #a = actual[0]
     a = actual
     assert a.__class__.__name__ == 'Sc2CastsSeries', a.__class__.__name__
 

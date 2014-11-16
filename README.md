@@ -11,6 +11,14 @@ Python client for crawling <http://sc2casts.com>.
 
 # Quickstart
 
+First install dependencies via virtualenv:
+
+```bash
+$> virtualenv venv
+```
+
+Then you can try out the provided example:
+
 ```python
 # from example.py; assumes you have virtualenv setup or required dependencies installed
 
@@ -33,33 +41,26 @@ Set what the Makefile provides:
 $> make help
 ```
 
-Run tests:
+# Development
+
+## Tests and reports
 
 ```bash
 # quick dev testing
 $> make test
 
+# run one test
+$> TODO
+
 # full testing
 $> make testall
 
-coverage run --source=sc2castsclient setup.py test
-coverage report -m
-```
-
-# Development
-
-## Tests and reports
-
-``` bash
-# run tests
-$> 
-
-# run one test
-
 # generate test coverage reports
 $> coverage run --source=sc2castsclient setup.py test
+
 # quick summary
 $> coverage report -m
+
 # html report
 $> coverage html && open htmlcov/index.html
 ```
